@@ -1,0 +1,2 @@
+<%= check_box_tag("checked_#{todo_list[:id]}_#{todo_list.dig(:item, :id)}", 1, todo_list.dig(:item, :checked)) %>
+<%= todo_list.dig(:item, :text) %>
