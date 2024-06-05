@@ -1,7 +1,0 @@
-TodoList
-  + title: string
-
-TodoItem object
-  + text: text
-  + checked: boolean
-  + list_id: fk
