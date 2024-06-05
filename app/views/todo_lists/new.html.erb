@@ -1,15 +1,33 @@
 <h1>New List</h1>
-<%# # TODO create todo items fields with plus button to add more fields %>
-<% flash.each do |status, message| %>
-  <%= content_for :div, message, class: status %>
-<% end%>
+<%= link_to('All todo list', todo_lists_path) %>
+<br>
+<button onclick="add_todo_item_text_field()">Add new item</button>
 
+<% flash.each do |status, message| %>
+  <%= content_tag :div, message.is_a?(Array) ? message.to_sentence : message, class: status %>
+<% end %>
 
 <div class="container">
   <%= form_with(model: @todo_list, class: 'create-form') do |form| %>
     <%= form.label 'Title' %>
     <%= form.text_field :title %>
-    <%= render partial: "todo_items/todo_item_form", locals: { form: form } %>
+    <%= render partial: 'todo_items/todo_item_form', locals: { form: form } %>
     <%= form.submit %>
   <% end %>
 </div>
+
+<script>
+  // TODO refactor this NASTY, shit-hole, putrid hack using a proper and dignified hotwire solution for god's sake
+  let itemCount = <%= @todo_list.todo_items.count %>;
+  function add_todo_item_text_field(event)
+  {
+    itemCount++;
+    const label = document.createElement("label");
+    label.appendChild(document.createTextNode(`Item ${itemCount + 1}`));
+    const textField = document.createElement("input");
+    textField.name = `todo_list[todo_items_attributes][${itemCount}][text]`;
+    textField.id = `todo_list_todo_items_attributes_${itemCount}_text`;
+    const before = document.querySelector(`#todo_list_todo_items_attributes_${itemCount - 1}_text`);
+    before.after(label, textField);
+  }
+</script>

@@ -1,54 +1,19 @@
 class TodoListsController < ApplicationController
   def index
-    todo_lists_mock_object = [
-      {
-        id: 1,
-        title: 'this is the first list',
-        items: [
-          {
-            id: 1,
-            text: 'stuff',
-            checked: true
-          },
-          {
-            id: 2,
-            text: 'stuff 1',
-            checked: false
-          },
-        ]
-      },
-      {
-        id: 2,
-        title: 'this is the second list',
-        items: [
-          {
-            id: 1,
-            text: 'stuff 1',
-            checked: false
-          },
-          {
-            id: 2,
-            text: 'stuff 2',
-            checked: true
-          },
-        ]
-      }
-    ]
-    @todo_lists = todo_lists_mock_object
+    @todo_lists = TodoList.all
   end
 
   def new
     @todo_list = TodoList.new
     # Needed to build a new record so nested attributes fields_for form will render the fields
-    @todo_list.todo_items.build
+    @todo_list.todo_items.new
   end
 
   def create
-    # TODO add error and success messages
-    TodoList.create(create_params)
-
+    todo_list = TodoList.create(create_params)
     # returns back to new page with appropriate message
-    flash[:alert] = 'All good.'
+    flash[:alert] = todo_list.errors.full_messages
+    flash[:success] = 'List created successfully.' unless flash[:alert].any?
     redirect_back(fallback_location: new_todo_list_path)
   end
 

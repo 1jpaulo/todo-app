@@ -1,7 +1,7 @@
 <ul>
-  <% todo_list[:items].each do |item| %>
+  <% todo_list.todo_items.each do |item| %>
     <li>
-      <%= check_box_tag("checked_#{todo_list[:id]}_#{item[:id]}", 1, item[:checked]) %>
+      <%= check_box_tag("checked_#{todo_list.id}_#{item.id}", 1, item.checked) %>
       <%= item[:text] %>
     </li>
     <% end %>

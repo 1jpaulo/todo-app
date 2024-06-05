@@ -1,9 +1,10 @@
 <h1>Todo Lists</h1>
+<%= link_to("New list", new_todo_list_path) %>
 
 <div class="container">
   <% @todo_lists.each do |todo_list| %>
     <h3>
-      <%= todo_list.fetch(:title) %>
+      <%= todo_list.title %>
     </h3>
     <%= render partial: 'todo_items/todo_item', locals: { todo_list: todo_list } %>
   <% end %>
