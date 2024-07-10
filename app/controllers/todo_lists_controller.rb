@@ -3,6 +3,10 @@ class TodoListsController < ApplicationController
     @todo_lists = TodoList.all
   end
 
+  def show
+    # TODO: create action
+  end
+
   def new
     @todo_list = TodoList.new
     # Needed to build a new record so nested attributes fields_for form will render the fields
@@ -18,15 +22,11 @@ class TodoListsController < ApplicationController
   end
 
   def edit
-    # TODO create action
+    # TODO: create action
   end
 
   def update
-    # TODO create action
-  end
-
-  def show
-    # TODO create action
+    # TODO: create action
   end
 
   private

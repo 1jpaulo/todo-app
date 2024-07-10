@@ -1,7 +1,49 @@
-require "test_helper"
+require 'test_helper'
 
 class TodoListsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    @todo_list = todo_lists(:one)
+    @todo_item = todo_items(:one)
+  end
+
+  test 'should get index' do
+    get todo_lists_url
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_todo_list_url
+    assert_response :success
+  end
+
+  test 'should create todo_list' do
+    assert_difference('TodoList.count') do
+      post todo_lists_url, params: { todo_list: { title: 'hey', todo_items_attributes: [{ text: 'value' }] } }
+    end
+
+    assert_redirected_to new_todo_list_path
+  end
+
+  test 'should show todo_list' do
+    get todo_list_url(@todo_list)
+    assert_response :success
+  end
+
+  test 'should get edit' do
+    get edit_todo_list_url(@todo_list)
+    assert_response :success
+  end
+
+  test 'should update todo_list' do
+    # patch todo_list_url(@todo_list), params: { todo_list: {} }
+    # assert_redirected_to todo_list_url(@todo_list)
+  end
+
+  test 'should destroy todo_list' do
+    # assert_difference('TodoList.count', -1) do
+    #   delete todo_list_url(@todo_list)
+    # end
+
+    # assert_redirected_to todo_lists_url
+  end
 end
